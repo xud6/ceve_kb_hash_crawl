@@ -11,7 +11,8 @@
     "preversion": "gulp docBuild",
     "version": "jsdoc2md dist/index.js > readme.md && git add -A readme.md",
     "debug": "ts-node debug/index.ts",
-    "run": "ts-node src/index.ts"
+    "run": "ts-node src/index.ts",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
