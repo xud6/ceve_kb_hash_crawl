@@ -1,6 +1,6 @@
 {
   "name": "@xdq/ceve_kb_gather",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ceve_kb_gather",
   "main": "dist/index.js",
   "typings": "dist/definitions/index.d.ts",
