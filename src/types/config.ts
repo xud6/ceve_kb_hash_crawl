@@ -10,12 +10,18 @@ export interface tDatabaseConfig {
     logging: LoggerOptions
 }
 
+export interface tAutoload {
+    interval_m: number
+    amount: number
+}
+
+export interface tConfig {
+    database: tDatabaseConfig,
+    autoload: tAutoload
+}
+
 export interface tLoadKms {
     loadOnstart: boolean
     amount?: number,
     afterId?: number
-}
-
-export interface tConfig {
-    database:tDatabaseConfig
 }

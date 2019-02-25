@@ -9,12 +9,13 @@ let tConfig: tConfig = {
         host: '10.8.32.195',
         port: 5432,
         logging: ["error", "schema", "warn", "info", "log"]
+    },
+    autoload: {
+        interval_m: 60 * 24,
+        amount: 10
     }
 }
 
-export let loadKms:tLoadKms = {
-    loadOnstart: false
-}
 
 //** load database config from env */
 if (process.env.DB_HOST && (process.env.DB_HOST.length > 0)) {
@@ -47,6 +48,26 @@ if (process.env.DB_PASSWORD && (process.env.DB_PASSWORD.length > 0)) {
     console.log(`read DB_PASSWORD from env`);
 }
 
+if (process.env.ANTOLOAD_INTERVAL_M && (process.env.ANTOLOAD_INTERVAL_M.length > 0)) {
+    try {
+        let i = parseInt(process.env.ANTOLOAD_INTERVAL_M);
+        tConfig.autoload.interval_m = i;
+        console.log(`read ANTOLOAD_INTERVAL_M [${tConfig.autoload.interval_m}] from env`);
+    } catch (e) { }
+}
+
+if (process.env.ANTOLOAD_AMOUNT && (process.env.ANTOLOAD_AMOUNT.length > 0)) {
+    try {
+        let i = parseInt(process.env.ANTOLOAD_AMOUNT);
+        tConfig.autoload.amount = i;
+        console.log(`read ANTOLOAD_AMOUNT [${tConfig.autoload.amount}] from env`);
+    } catch (e) { }
+}
+
+export let loadKms: tLoadKms = {
+    loadOnstart: false
+}
+
 if (process.env.LOADKMS_AMOUNT && (process.env.LOADKMS_AMOUNT.length > 0)) {
     try {
         let i = parseInt(process.env.LOADKMS_AMOUNT);
@@ -57,9 +78,9 @@ if (process.env.LOADKMS_AMOUNT && (process.env.LOADKMS_AMOUNT.length > 0)) {
 
 if (process.env.LOADKMS_AFTERID && (process.env.LOADKMS_AFTERID.length > 0)) {
     try {
-        if(process.env.LOADKMS_AFTERID == 'undefined'){
+        if (process.env.LOADKMS_AFTERID == 'undefined') {
             process.env.LOADKMS_AFTERID = undefined
-        }else{
+        } else {
             let i = parseInt(process.env.LOADKMS_AFTERID);
             loadKms.afterId = i;
         }

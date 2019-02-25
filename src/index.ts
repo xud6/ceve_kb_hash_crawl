@@ -8,7 +8,7 @@ class ceveKMGather {
     db: typeormdb
     KbGather: KbGather
     intervalSlow: NodeJS.Timeout
-    constructor(config: tConfig) {
+    constructor(readonly config: tConfig) {
         this.db = new typeormdb(config.database)
         this.KbGather = new KbGather({ db: this.db })
     }
@@ -16,8 +16,8 @@ class ceveKMGather {
         await this.db.inited;
 
         this.intervalSlow = setInterval(() => {
-            this.KbGather.loadKmInfo(10);
-        }, 1000 * 60 * 60 * 24)
+            this.KbGather.loadKmInfo(this.config.autoload.amount);
+        }, 1000 * 60 * this.config.autoload.interval_m)
     }
     async loadKms(amount: number, afterId?: number) {
         await this.KbGather.loadKmInfo(amount, afterId); //100000
