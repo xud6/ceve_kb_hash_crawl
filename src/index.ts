@@ -27,7 +27,8 @@ class ceveKMGather {
 let service = new ceveKMGather(config)
 async function start() {
     await service.init()
-    if (config.loadKms.amount) {
+    if (config.loadKms.loadOnstart && config.loadKms.amount) {
+        console.log(`start loading kms after ${config.loadKms.afterId} amount ${config.loadKms.amount}`)
         service.loadKms(config.loadKms.amount, config.loadKms.afterId)
     }
 }

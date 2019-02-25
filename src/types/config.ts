@@ -11,6 +11,7 @@ export interface tDatabaseConfig {
 }
 
 export interface tLoadKms {
+    loadOnstart: boolean
     amount?: number,
     afterId?: number
 }
