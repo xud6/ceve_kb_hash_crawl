@@ -1,4 +1,4 @@
-import { tConfig } from "./types/config";
+import { tConfig, tLoadKms } from "./types/config";
 import { createCipher } from "crypto";
 
 let tConfig: tConfig = {
@@ -9,10 +9,11 @@ let tConfig: tConfig = {
         host: '10.8.32.195',
         port: 5432,
         logging: ["error", "schema", "warn", "info", "log"]
-    },
-    loadKms: {
-        loadOnstart: false
     }
+}
+
+export let loadKms:tLoadKms = {
+    loadOnstart: false
 }
 
 //** load database config from env */
@@ -49,8 +50,8 @@ if (process.env.DB_PASSWORD && (process.env.DB_PASSWORD.length > 0)) {
 if (process.env.LOADKMS_AMOUNT && (process.env.LOADKMS_AMOUNT.length > 0)) {
     try {
         let i = parseInt(process.env.LOADKMS_AMOUNT);
-        tConfig.loadKms.amount = i;
-        console.log(`read LOADKMS_AMOUNT [${tConfig.loadKms.amount}] from env`);
+        loadKms.amount = i;
+        console.log(`read LOADKMS_AMOUNT [${loadKms.amount}] from env`);
     } catch (e) { }
 }
 
@@ -60,17 +61,17 @@ if (process.env.LOADKMS_AFTERID && (process.env.LOADKMS_AFTERID.length > 0)) {
             process.env.LOADKMS_AFTERID = undefined
         }else{
             let i = parseInt(process.env.LOADKMS_AFTERID);
-            tConfig.loadKms.afterId = i;
+            loadKms.afterId = i;
         }
-        console.log(`read LOADKMS_AFTERID [${tConfig.loadKms.afterId}] from env`);
+        console.log(`read LOADKMS_AFTERID [${loadKms.afterId}] from env`);
     } catch (e) { }
 }
 
 if (process.env.LOADKMS_LOADONSTART && (process.env.LOADKMS_LOADONSTART.length > 0)) {
     if (process.env.LOADKMS_LOADONSTART == "TRUE") {
-        tConfig.loadKms.loadOnstart = true
+        loadKms.loadOnstart = true
     }
-    console.log(`read LOADKMS_LOADONSTART [${tConfig.loadKms.loadOnstart}] from env`);
+    console.log(`read LOADKMS_LOADONSTART [${loadKms.loadOnstart}] from env`);
 }
 
 export let config = tConfig

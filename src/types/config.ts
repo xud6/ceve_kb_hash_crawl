@@ -18,5 +18,4 @@ export interface tLoadKms {
 
 export interface tConfig {
     database:tDatabaseConfig
-    loadKms:tLoadKms
 }

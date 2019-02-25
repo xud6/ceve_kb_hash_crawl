@@ -2,7 +2,7 @@ import { KbGather } from './KbGather'
 import { typeormdb } from './db'
 import { tConfig } from './types/config';
 
-import { config } from './config'
+import { config, loadKms } from './config'
 
 class ceveKMGather {
     db: typeormdb
@@ -27,9 +27,9 @@ class ceveKMGather {
 let service = new ceveKMGather(config)
 async function start() {
     await service.init()
-    if (config.loadKms.loadOnstart && config.loadKms.amount) {
-        console.log(`start loading kms after ${config.loadKms.afterId} amount ${config.loadKms.amount}`)
-        service.loadKms(config.loadKms.amount, config.loadKms.afterId)
+    if (loadKms.loadOnstart && loadKms.amount) {
+        console.log(`start loading kms after ${loadKms.afterId} amount ${loadKms.amount}`)
+        service.loadKms(loadKms.amount, loadKms.afterId)
     }
 }
 
