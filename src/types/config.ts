@@ -10,6 +10,12 @@ export interface tDatabaseConfig {
     logging: LoggerOptions
 }
 
+export interface tLoadKms {
+    amount?: number,
+    afterId?: number
+}
+
 export interface tConfig {
     database:tDatabaseConfig
+    loadKms:tLoadKms
 }

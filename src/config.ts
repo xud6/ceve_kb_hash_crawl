@@ -1,4 +1,5 @@
 import { tConfig } from "./types/config";
+import { createCipher } from "crypto";
 
 let tConfig: tConfig = {
     database: {
@@ -9,6 +10,8 @@ let tConfig: tConfig = {
         port: 5432,
         logging: ["error", "schema", "warn", "info", "log"]
     },
+    loadKms:{
+    }
 }
 
 //** load database config from env */
@@ -40,6 +43,22 @@ if (process.env.DB_USERNAME && (process.env.DB_USERNAME.length > 0)) {
 if (process.env.DB_PASSWORD && (process.env.DB_PASSWORD.length > 0)) {
     tConfig.database.password = process.env.DB_PASSWORD;
     console.log(`read DB_PASSWORD from env`);
+}
+
+if (process.env.LOADKMS_AMOUNT && (process.env.LOADKMS_AMOUNT.length > 0)) {
+    try {
+        let i = parseInt(process.env.LOADKMS_AMOUNT);
+        tConfig.loadKms.amount = i;
+        console.log(`read LOADKMS_AMOUNT [${tConfig.loadKms.amount}] from env`);
+    }catch(e){}
+}
+
+if (process.env.LOADKMS_AFTERID && (process.env.LOADKMS_AFTERID.length > 0)) {
+    try {
+        let i = parseInt(process.env.LOADKMS_AFTERID);
+        tConfig.loadKms.afterId = i;
+        console.log(`read LOADKMS_AFTERID [${tConfig.loadKms.afterId}] from env`);
+    }catch(e){}
 }
 
 export let config = tConfig

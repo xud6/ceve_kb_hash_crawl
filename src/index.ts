@@ -14,16 +14,22 @@ class ceveKMGather {
     }
     async init() {
         await this.db.inited;
-        this.KbGather.loadKmInfo(100000);
-        this.intervalSlow = setInterval(()=>{
+
+        this.intervalSlow = setInterval(() => {
             this.KbGather.loadKmInfo(10);
-        },1000 * 60 * 60 * 24)
+        }, 1000 * 60 * 60 * 24)
+    }
+    async loadKms(amount: number, afterId?: number) {
+        await this.KbGather.loadKmInfo(amount, afterId); //100000
     }
 }
 
 let service = new ceveKMGather(config)
 async function start() {
     await service.init()
+    if (config.loadKms.amount) {
+        service.loadKms(config.loadKms.amount, config.loadKms.afterId)
+    }
 }
 
 start()
